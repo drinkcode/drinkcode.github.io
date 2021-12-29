@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://drinkcode.github.io/sitemap.xml
+Host: https://drinkcode.github.io
