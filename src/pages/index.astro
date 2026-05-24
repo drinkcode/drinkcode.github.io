@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.created.valueOf() - a.data.created.valueOf()
+);
+---
+<Layout title="drinkcode" description="개발 기록 블로그">
+  <h1>Posts</h1>
+  <ul class="post-list">
+    {posts.map((post) => (
+      <li class="post-item">
+        <a href={`/${post.data.urlPath}`}>
+          <h2>{post.data.title}</h2>
+          <div class="post-meta">
+            <time datetime={post.data.created.toISOString()}>
+              {post.data.created.toISOString().slice(0, 10)}
+            </time>
+            {post.data.tags.length > 0 && (
+              <span class="tags">
+                {post.data.tags.map((t) => <span class="tag">#{t}</span>)}
+              </span>
+            )}
+          </div>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Layout>
